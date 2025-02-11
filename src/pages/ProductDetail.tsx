@@ -13,7 +13,8 @@ const ProductDetail = () => {
     confetti({
       particleCount: 100,
       spread: 70,
-      origin: { y: 0.6 }
+      origin: { y: 0.6 },
+      colors: ['#FFFFFF', '#9B7E3B'], // White and gold colors
     });
   };
 
