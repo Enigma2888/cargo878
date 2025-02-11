@@ -42,10 +42,18 @@ const ProductDetail = () => {
           <h1 className="text-xl font-semibold mb-2">Шоколадное печенье</h1>
           <span className="inline-block text-[#9B7E3B] text-sm mb-3">PREMIUM</span>
           
-          <p className="text-gray-300 mb-4">
-            Наше премиальное шоколадное печенье изготовлено из высококачественного бельгийского шоколада. 
-            Идеальное сочетание хрустящей текстуры и нежной начинки создает неповторимый вкус.
+          <p className="text-gray-400 mb-6">
+            Наше фирменное шоколадное печенье готовится по традиционному рецепту с использованием только натуральных ингредиентов высшего качества. Каждое печенье выпекается вручную для достижения идеального вкуса и текстуры.
           </p>
+
+          <h2 className="text-lg font-medium mb-3">Состав</h2>
+          <ul className="list-disc list-inside text-gray-400 space-y-2 mb-6">
+            <li>Мука высшего сорта</li>
+            <li>Натуральное сливочное масло</li>
+            <li>Свежие яйца</li>
+            <li>Тростниковый сахар</li>
+            <li>Бельгийский шоколад премиум-класса</li>
+          </ul>
 
           <div className="flex items-center justify-between mb-4">
             <span className="text-xl font-semibold">2000 ₽</span>
