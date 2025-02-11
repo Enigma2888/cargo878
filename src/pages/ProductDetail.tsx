@@ -22,16 +22,16 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-[#1A1F2C] text-white">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
-        <button 
-          onClick={() => navigate(-1)}
-          className="mb-4 flex items-center text-[#9B7E3B] hover:text-[#B19548] transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          <span>Назад</span>
-        </button>
-
         <div className="bg-[#2A2F3C] rounded-xl p-4">
-          <div className="aspect-square rounded-lg overflow-hidden mb-4">
+          <button 
+            onClick={() => navigate(-1)}
+            className="mb-4 flex items-center text-[#9B7E3B] hover:text-[#B19548] transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5" />
+            <span>Назад</span>
+          </button>
+
+          <div className="mb-4">
             <img 
               src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
               alt="Cookie"
