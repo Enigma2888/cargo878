@@ -1,23 +1,87 @@
 
 import { Header } from "@/components/Header";
+import { ChevronRight } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-[#1A1F2C] text-white">
       <Header />
-      <main className="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center">
-          <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
-            Welcome to Telegram WebApp
+      <main className="pt-20 px-4 max-w-md mx-auto">
+        <section className="mb-8">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Печенье</h2>
+            <button className="text-[#9B7E3B] text-sm">листай</button>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
-            Start Building Your Experience
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            This is your personalized Telegram Web Application. We've created a beautiful,
-            responsive interface that seamlessly integrates with your Telegram profile.
-          </p>
-        </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-[#2A2F3C] rounded-xl p-3">
+              <div className="aspect-square rounded-lg overflow-hidden mb-3">
+                <img 
+                  src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
+                  alt="Chocolate Cookies"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-sm font-medium mb-1">Шоколадное</h3>
+                  <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
+                  <p className="text-sm mt-1">2000 ₽</p>
+                </div>
+                <button className="mt-1 bg-white/10 rounded-full p-1">
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            <div className="bg-[#2A2F3C] rounded-xl p-3">
+              <div className="aspect-square rounded-lg overflow-hidden mb-3">
+                <img 
+                  src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
+                  alt="Raisin Cookies"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="text-sm font-medium mb-1">С изюмом</h3>
+                  <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
+                  <p className="text-sm mt-1">1600 ₽</p>
+                </div>
+                <button className="mt-1 bg-white/10 rounded-full p-1">
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Акция</h2>
+            <button className="text-[#9B7E3B] text-sm">листай</button>
+          </div>
+          <div className="bg-[#2A2F3C] rounded-xl p-3">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-lg overflow-hidden">
+                <img 
+                  src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
+                  alt="Double Chocolate"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-medium mb-1">Double Chocolate</h3>
+                <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-gray-400 line-through text-sm">2000 ₽</span>
+                  <span className="text-sm">1200 ₽</span>
+                </div>
+              </div>
+              <button className="bg-white/10 rounded-full p-1">
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
