@@ -1,6 +1,7 @@
 
 import { Header } from "@/components/Header";
 import { ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
@@ -23,41 +24,45 @@ const Index = () => {
                 <CarouselItem key={index} className="md:basis-full">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-[#2A2F3C] rounded-xl p-3">
-                      <div className="aspect-square rounded-lg overflow-hidden mb-3">
-                        <img 
-                          src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
-                          alt="Chocolate Cookies"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                      <Link to={`/product/${index + 1}`}>
+                        <div className="aspect-square rounded-lg overflow-hidden mb-3 transition-transform duration-200 hover:scale-105">
+                          <img 
+                            src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
+                            alt="Chocolate Cookies"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </Link>
                       <div className="flex items-start justify-between">
                         <div>
                           <h3 className="text-sm font-medium mb-1">Шоколадное</h3>
                           <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
                           <p className="text-sm mt-1">2000 ₽</p>
                         </div>
-                        <button className="mt-1 bg-white/10 rounded-full p-1">
+                        <Link to={`/product/${index + 1}`} className="mt-1 bg-white/10 rounded-full p-1 transition-colors hover:bg-white/20">
                           <ChevronRight className="w-4 h-4" />
-                        </button>
+                        </Link>
                       </div>
                     </div>
                     <div className="bg-[#2A2F3C] rounded-xl p-3">
-                      <div className="aspect-square rounded-lg overflow-hidden mb-3">
-                        <img 
-                          src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
-                          alt="Raisin Cookies"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                      <Link to={`/product/${index + 6}`}>
+                        <div className="aspect-square rounded-lg overflow-hidden mb-3 transition-transform duration-200 hover:scale-105">
+                          <img 
+                            src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
+                            alt="Raisin Cookies"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </Link>
                       <div className="flex items-start justify-between">
                         <div>
                           <h3 className="text-sm font-medium mb-1">С изюмом</h3>
                           <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
                           <p className="text-sm mt-1">1600 ₽</p>
                         </div>
-                        <button className="mt-1 bg-white/10 rounded-full p-1">
+                        <Link to={`/product/${index + 6}`} className="mt-1 bg-white/10 rounded-full p-1 transition-colors hover:bg-white/20">
                           <ChevronRight className="w-4 h-4" />
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
