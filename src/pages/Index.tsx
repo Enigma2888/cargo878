@@ -10,7 +10,7 @@ import {
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#1A1F2C] text-white">
+    <div className="min-h-screen bg-white dark:bg-[#1A1F2C] text-[#1A1F2C] dark:text-white">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
         <section className="mb-8">

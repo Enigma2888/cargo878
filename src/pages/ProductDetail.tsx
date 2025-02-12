@@ -1,4 +1,3 @@
-
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -14,15 +13,15 @@ const ProductDetail = () => {
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#FFFFFF', '#9B7E3B'], // White and gold colors
+      colors: ['#FFFFFF', '#9B7E3B'],
     });
   };
 
   return (
-    <div className="min-h-screen bg-[#1A1F2C] text-white">
+    <div className="min-h-screen bg-white dark:bg-[#1A1F2C] text-[#1A1F2C] dark:text-white">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
-        <div className="bg-[#2A2F3C] rounded-xl p-4">
+        <div className="bg-gray-100 dark:bg-[#2A2F3C] rounded-xl p-4">
           <div className="relative mb-4">
             <button 
               onClick={() => navigate(-1)}
