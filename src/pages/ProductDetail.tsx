@@ -31,8 +31,8 @@ const ProductDetail = () => {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <img 
-              src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
-              alt="Cookie"
+              src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+              alt="Delivery Frame"
               className="w-full h-full object-cover"
             />
           </div>

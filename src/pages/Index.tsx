@@ -27,8 +27,8 @@ const Index = () => {
                       <Link to={`/product/${index + 1}`}>
                         <div className="aspect-square rounded-lg overflow-hidden mb-3 transition-transform duration-200 hover:scale-105">
                           <img 
-                            src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
-                            alt="Chocolate Cookies"
+                            src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7" 
+                            alt="Delivery Frame 1"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -48,8 +48,8 @@ const Index = () => {
                       <Link to={`/product/${index + 6}`}>
                         <div className="aspect-square rounded-lg overflow-hidden mb-3 transition-transform duration-200 hover:scale-105">
                           <img 
-                            src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
-                            alt="Raisin Cookies"
+                            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
+                            alt="Delivery Frame 2"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -81,8 +81,8 @@ const Index = () => {
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-lg overflow-hidden">
                 <img 
-                  src="/lovable-uploads/6df51440-de8e-4d5d-bfa9-53378df4b628.png" 
-                  alt="Double Chocolate"
+                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
+                  alt="Delivery Frame 3"
                   className="w-full h-full object-cover"
                 />
               </div>
