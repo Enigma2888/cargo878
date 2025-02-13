@@ -25,7 +25,7 @@ const Index = () => {
                       </Link>
                       <div className="flex items-start justify-between">
                         <div>
-                          <h3 className="text-sm font-medium mb-1">Шоколадное</h3>
+                          <h3 className="text-sm mb-1 font-extralight">Шоколадное</h3>
                           <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
                           <p className="text-sm mt-1">2000 ₽</p>
                         </div>
@@ -42,7 +42,7 @@ const Index = () => {
                       </Link>
                       <div className="flex items-start justify-between">
                         <div>
-                          <h3 className="text-sm font-medium mb-1">С изюмом</h3>
+                          <h3 className="text-sm mb-1 font-extralight">С изюмом</h3>
                           <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
                           <p className="text-sm mt-1">1600 ₽</p>
                         </div>
@@ -68,7 +68,7 @@ const Index = () => {
                 <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Delivery Frame 3" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1">
-                <h3 className="font-medium mb-1">Double Chocolate</h3>
+                <h3 className="mb-1 font-extralight">Double Chocolate</h3>
                 <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-gray-400 line-through text-sm">2000 ₽</span>
