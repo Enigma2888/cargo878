@@ -8,7 +8,7 @@ const Index = () => {
       <main className="pt-20 px-4 max-w-md mx-auto">
         <section className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Печенье</h2>
+            <h2 className="text-xl font-extralight">Товары</h2>
             <button className="text-[#9B7E3B] text-sm">листай</button>
           </div>
           <Carousel className="w-full">
@@ -59,7 +59,7 @@ const Index = () => {
 
         <section>
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">Акция</h2>
+            <h2 className="text-xl font-extralight">Услуги</h2>
             <button className="text-[#9B7E3B] text-sm">листай</button>
           </div>
           <div className="bg-[#2A2F3C] rounded-xl p-3">
