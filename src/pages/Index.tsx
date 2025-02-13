@@ -1,16 +1,9 @@
-
 import { Header } from "@/components/Header";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-white dark:bg-[#1A1F2C] text-[#1A1F2C] dark:text-white">
+  return <div className="min-h-screen bg-white dark:bg-[#1A1F2C] text-[#1A1F2C] dark:text-white">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
         <section className="mb-8">
@@ -20,17 +13,14 @@ const Index = () => {
           </div>
           <Carousel className="w-full">
             <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem key={index} className="md:basis-full">
+              {Array.from({
+              length: 5
+            }).map((_, index) => <CarouselItem key={index} className="md:basis-full">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-[#2A2F3C] rounded-xl p-3">
                       <Link to={`/product/${index + 1}`}>
                         <div className="aspect-square rounded-lg overflow-hidden mb-3 transition-transform duration-200 hover:scale-105">
-                          <img 
-                            src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7" 
-                            alt="Delivery Frame 1"
-                            className="w-full h-full object-cover"
-                          />
+                          <img src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7" alt="Delivery Frame 1" className="w-full h-full object-cover" />
                         </div>
                       </Link>
                       <div className="flex items-start justify-between">
@@ -47,11 +37,7 @@ const Index = () => {
                     <div className="bg-[#2A2F3C] rounded-xl p-3">
                       <Link to={`/product/${index + 6}`}>
                         <div className="aspect-square rounded-lg overflow-hidden mb-3 transition-transform duration-200 hover:scale-105">
-                          <img 
-                            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
-                            alt="Delivery Frame 2"
-                            className="w-full h-full object-cover"
-                          />
+                          <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" alt="Delivery Frame 2" className="w-full h-full object-cover rounded-none" />
                         </div>
                       </Link>
                       <div className="flex items-start justify-between">
@@ -66,8 +52,7 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
-                </CarouselItem>
-              ))}
+                </CarouselItem>)}
             </CarouselContent>
           </Carousel>
         </section>
@@ -80,11 +65,7 @@ const Index = () => {
           <div className="bg-[#2A2F3C] rounded-xl p-3">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-lg overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" 
-                  alt="Delivery Frame 3"
-                  className="w-full h-full object-cover"
-                />
+                <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Delivery Frame 3" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1">
                 <h3 className="font-medium mb-1">Double Chocolate</h3>
@@ -101,8 +82,6 @@ const Index = () => {
           </div>
         </section>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
