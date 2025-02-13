@@ -1,7 +1,9 @@
+
 import { Header } from "@/components/Header";
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+
 const Index = () => {
   return <div className="min-h-screen bg-white dark:bg-[#1A1F2C] text-[#1A1F2C] dark:text-white">
       <Header />
@@ -13,9 +15,8 @@ const Index = () => {
           </div>
           <Carousel className="w-full">
             <CarouselContent>
-              {Array.from({
-              length: 5
-            }).map((_, index) => <CarouselItem key={index} className="md:basis-full">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <CarouselItem key={index} className="md:basis-full">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-[#2A2F3C] rounded-xl p-3">
                       <Link to={`/product/${index + 1}`}>
@@ -52,7 +53,8 @@ const Index = () => {
                       </div>
                     </div>
                   </div>
-                </CarouselItem>)}
+                </CarouselItem>
+              ))}
             </CarouselContent>
           </Carousel>
         </section>
@@ -62,26 +64,37 @@ const Index = () => {
             <h2 className="text-xl font-extralight">Услуги</h2>
             <button className="text-[#9B7E3B] text-sm">листай</button>
           </div>
-          <div className="bg-[#2A2F3C] rounded-xl p-3">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-lg overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Delivery Frame 3" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-medium mb-1">Double Chocolate</h3>
-                <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-gray-400 line-through text-sm">2000 ₽</span>
-                  <span className="text-sm">1200 ₽</span>
-                </div>
-              </div>
-              <button className="bg-white/10 rounded-full p-1">
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+          <Carousel className="w-full">
+            <CarouselContent>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <CarouselItem key={index} className="md:basis-full">
+                  <div className="bg-[#2A2F3C] rounded-xl p-3">
+                    <Link to={`/product/service-${index + 1}`}>
+                      <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-lg overflow-hidden">
+                          <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt={`Service ${index + 1}`} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-medium mb-1">Double Chocolate</h3>
+                          <span className="text-[#9B7E3B] text-xs">PREMIUM</span>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-gray-400 line-through text-sm">2000 ₽</span>
+                            <span className="text-sm">1200 ₽</span>
+                          </div>
+                        </div>
+                        <div className="bg-white/10 rounded-full p-1">
+                          <ChevronRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </section>
       </main>
     </div>;
 };
+
 export default Index;
