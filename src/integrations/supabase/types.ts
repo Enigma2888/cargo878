@@ -44,7 +44,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_telegram_users_table: {
+        Args: {
+          sql: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
