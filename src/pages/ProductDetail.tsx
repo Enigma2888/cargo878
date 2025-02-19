@@ -29,7 +29,7 @@ interface Service {
 const ProductDetail = () => {
   const { id } = useParams();
   const isService = id?.startsWith('service-');
-  const actualId = isService ? id.replace('service-', '') : id;
+  const actualId = isService ? parseInt(id.replace('service-', '')) : parseInt(id || '0');
 
   const { data: item, isLoading } = useQuery({
     queryKey: [isService ? 'service' : 'product', actualId],
