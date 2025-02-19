@@ -28,8 +28,28 @@ interface Service {
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const isService = id?.startsWith('service-');
-  const actualId = isService ? parseInt(id.replace('service-', '')) : parseInt(id || '0');
+  
+  if (!id) {
+    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-2">Страница не найдена</h1>
+        <p className="text-gray-400">ID продукта не указан</p>
+      </div>
+    </div>;
+  }
+
+  const isService = id.startsWith('service-');
+  const rawId = isService ? id.replace('service-', '') : id;
+  const actualId = parseInt(rawId);
+
+  if (isNaN(actualId)) {
+    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-2">Некорректный ID</h1>
+        <p className="text-gray-400">ID должен быть числом</p>
+      </div>
+    </div>;
+  }
 
   const { data: item, isLoading } = useQuery({
     queryKey: [isService ? 'service' : 'product', actualId],
@@ -46,11 +66,20 @@ const ProductDetail = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-2">Загрузка...</h1>
+      </div>
+    </div>;
   }
 
   if (!item) {
-    return <div>Not found</div>;
+    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-2">Не найдено</h1>
+        <p className="text-gray-400">Товар или услуга не найдены</p>
+      </div>
+    </div>;
   }
 
   return (
