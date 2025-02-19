@@ -13,8 +13,6 @@ interface Product {
   price: number;
   image_url: string;
   category: string;
-  page_title: string;
-  page_description: string;
 }
 
 interface Service {
@@ -25,8 +23,6 @@ interface Service {
   original_price: number | null;
   image_url: string;
   category: string;
-  page_title: string;
-  page_description: string;
 }
 
 const Index = () => {

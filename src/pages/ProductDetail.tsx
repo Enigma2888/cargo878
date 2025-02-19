@@ -1,113 +1,70 @@
 
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
-
-interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  image_url: string;
-  category: string;
-  page_title: string;
-  page_description: string;
-}
-
-interface Service {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  original_price: number | null;
-  image_url: string;
-  category: string;
-  page_title: string;
-  page_description: string;
-}
+import { useNavigate, useParams } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import confetti from 'canvas-confetti';
 
 const ProductDetail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
-  
-  if (!id) {
-    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">Страница не найдена</h1>
-        <p className="text-gray-400">ID продукта не указан</p>
-      </div>
-    </div>;
-  }
 
-  const isService = id.startsWith('service-');
-  const rawId = isService ? id.replace('service-', '') : id;
-  const actualId = parseInt(rawId);
-
-  if (isNaN(actualId)) {
-    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">Некорректный ID</h1>
-        <p className="text-gray-400">ID должен быть числом</p>
-      </div>
-    </div>;
-  }
-
-  const { data: item, isLoading } = useQuery({
-    queryKey: [isService ? 'service' : 'product', actualId],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from(isService ? 'services' : 'products')
-        .select('*')
-        .eq('id', actualId)
-        .single();
-      
-      if (error) throw error;
-      return data as Product | Service;
-    }
-  });
-
-  if (isLoading) {
-    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">Загрузка...</h1>
-      </div>
-    </div>;
-  }
-
-  if (!item) {
-    return <div className="min-h-screen bg-[#1A1F2C] text-white flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">Не найдено</h1>
-        <p className="text-gray-400">Товар или услуга не найдены</p>
-      </div>
-    </div>;
-  }
+  const handleAddToCart = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#FFFFFF', '#9B7E3B'],
+    });
+  };
 
   return (
     <div className="min-h-screen bg-[#1A1F2C] text-white">
-      <div className="max-w-md mx-auto px-4 pt-8">
-        <div className="mb-8">
-          <img 
-            src={item.image_url} 
-            alt={item.title}
-            className="w-full h-64 object-cover rounded-xl"
-          />
-        </div>
-        
-        <h1 className="text-2xl font-bold mb-2">{item.page_title || item.title}</h1>
-        <p className="text-gray-400 mb-4">{item.page_description || item.description}</p>
-        
-        <div className="flex items-center justify-between bg-[#2A2F3C] p-4 rounded-xl">
-          <div>
-            <span className="text-[#9B7E3B] text-sm">{item.category}</span>
-            <div className="flex items-center gap-2 mt-1">
-              {'original_price' in item && item.original_price && (
-                <span className="text-gray-400 line-through">{item.original_price} ₽</span>
-              )}
-              <span className="text-xl font-bold">{item.price} ₽</span>
-            </div>
+      <Header />
+      <main className="pt-20 px-4 max-w-md mx-auto">
+        <div className="bg-[#2A2F3C] rounded-xl p-4">
+          <div className="relative mb-4">
+            <button 
+              onClick={() => navigate(-1)}
+              className="absolute top-4 left-4 z-10 w-8 h-8 flex items-center justify-center bg-black/50 rounded-full text-[#9B7E3B] hover:text-[#B19548] transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <img 
+              src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
+              alt="Delivery Frame"
+              className="w-full h-full object-cover rounded-lg"
+            />
           </div>
+
+          <h1 className="text-xl font-semibold mb-2">Шоколадное печенье</h1>
+          <span className="inline-block text-[#9B7E3B] text-sm mb-3">PREMIUM</span>
+          
+          <p className="text-gray-400 mb-6">
+            Наше фирменное шоколадное печенье готовится по традиционному рецепту с использованием только натуральных ингредиентов высшего качества. Каждое печенье выпекается вручную для достижения идеального вкуса и текстуры.
+          </p>
+
+          <h2 className="text-lg font-medium mb-3">Состав</h2>
+          <ul className="list-disc list-inside text-gray-400 space-y-2 mb-6">
+            <li>Мука высшего сорта</li>
+            <li>Натуральное сливочное масло</li>
+            <li>Свежие яйца</li>
+            <li>Тростниковый сахар</li>
+            <li>Бельгийский шоколад премиум-класса</li>
+          </ul>
+
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xl font-semibold">2000 ₽</span>
+          </div>
+
+          <Button 
+            onClick={handleAddToCart}
+            className="w-full bg-[#9B7E3B] hover:bg-[#B19548] transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Добавить в корзину
+          </Button>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
