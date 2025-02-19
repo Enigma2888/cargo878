@@ -9,6 +9,75 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      products: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: number
+          image_url: string
+          price: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url: string
+          price: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url?: string
+          price?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: number
+          image_url: string
+          original_price: number | null
+          price: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url: string
+          original_price?: number | null
+          price: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          image_url?: string
+          original_price?: number | null
+          price?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       telegram_users: {
         Row: {
           device: string | null
