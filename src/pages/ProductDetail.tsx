@@ -1,3 +1,4 @@
+
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,10 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#1A1F2C] text-[#1A1F2C] dark:text-white">
+    <div className="min-h-screen bg-[#1A1F2C] text-white">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
-        <div className="bg-gray-100 dark:bg-[#2A2F3C] rounded-xl p-4">
+        <div className="bg-[#2A2F3C] rounded-xl p-4">
           <div className="relative mb-4">
             <button 
               onClick={() => navigate(-1)}
@@ -32,7 +33,7 @@ const ProductDetail = () => {
             <img 
               src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81" 
               alt="Delivery Frame"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
 
