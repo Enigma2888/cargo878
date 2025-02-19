@@ -5,6 +5,7 @@ declare global {
       WebApp: {
         initDataUnsafe: {
           user?: {
+            id?: string;
             photo_url?: string;
             username?: string;
             first_name?: string;
