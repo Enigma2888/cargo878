@@ -11,28 +11,20 @@ const initializeDatabase = async () => {
         username text,
         photo_url text,
         device text,
-        first_visit timestamp with time zone not null,
-        last_visit timestamp with time zone not null
+        first_visit timestamptz not null,
+        last_visit timestamptz not null
       );
 
-      -- Добавляем политику RLS для разрешения вставки и обновления данных
       alter table telegram_users enable row level security;
 
       create policy if not exists "Enable insert for all users"
-        on telegram_users
-        for insert
-        with check (true);
+        on telegram_users for insert with check (true);
 
       create policy if not exists "Enable update for all users"
-        on telegram_users
-        for update
-        using (true);
+        on telegram_users for update using (true);
 
       create policy if not exists "Enable select for all users"
-        on telegram_users
-        for select
-        using (true);
-    `
+        on telegram_users for select using (true);`
   });
 
   if (error) {
