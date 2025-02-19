@@ -12,7 +12,7 @@ const initializeDatabase = async () => {
 
     if (tableError) {
       // Если таблица не существует, создаем её
-      const { error: createError } = await supabase.query(`
+      const { error: createError } = await supabase.sql`
         create table if not exists telegram_users (
           id text primary key,
           first_name text,
@@ -33,7 +33,7 @@ const initializeDatabase = async () => {
         
         create policy if not exists "Enable select for all users" 
           on telegram_users for select using (true);
-      `);
+      `;
 
       if (createError) {
         console.error('Error initializing database:', createError);
