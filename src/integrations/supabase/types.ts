@@ -119,6 +119,10 @@ export type Database = {
         }
         Returns: undefined
       }
+      initialize_telegram_users: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
