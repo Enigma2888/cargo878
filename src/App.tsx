@@ -10,9 +10,6 @@ import Index from "./pages/Index";
 import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 import Partnership from "./pages/Partnership";
-import { supabase } from "./lib/supabase";
-import { getTelegramUser } from "./utils/telegram";
-import { processReferral } from "@/utils/referral";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,30 +25,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const startApp = urlParams.get('startapp');
-        const currentUser = getTelegramUser();
-
-        if (startApp && currentUser?.id) {
-          try {
-            const decodedData = JSON.parse(atob(startApp));
-            if (decodedData.referrer) {
-              await processReferral(decodedData.referrer, currentUser.id);
-            }
-          } catch (e) {
-            console.error('Failed to process referral:', e);
-          }
-        }
-      } catch (error) {
-        console.error('Error during app initialization:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    const timer = setTimeout(initializeApp, 3000);
+    const timer = setTimeout(() => setIsLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
