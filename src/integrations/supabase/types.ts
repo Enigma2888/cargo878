@@ -16,6 +16,8 @@ export type Database = {
           description: string | null
           id: number
           image_url: string
+          page_description: string | null
+          page_title: string | null
           price: number
           title: string
           updated_at: string | null
@@ -26,6 +28,8 @@ export type Database = {
           description?: string | null
           id?: number
           image_url: string
+          page_description?: string | null
+          page_title?: string | null
           price: number
           title: string
           updated_at?: string | null
@@ -36,6 +40,8 @@ export type Database = {
           description?: string | null
           id?: number
           image_url?: string
+          page_description?: string | null
+          page_title?: string | null
           price?: number
           title?: string
           updated_at?: string | null
@@ -50,6 +56,8 @@ export type Database = {
           id: number
           image_url: string
           original_price: number | null
+          page_description: string | null
+          page_title: string | null
           price: number
           title: string
           updated_at: string | null
@@ -61,6 +69,8 @@ export type Database = {
           id?: number
           image_url: string
           original_price?: number | null
+          page_description?: string | null
+          page_title?: string | null
           price: number
           title: string
           updated_at?: string | null
@@ -72,6 +82,8 @@ export type Database = {
           id?: number
           image_url?: string
           original_price?: number | null
+          page_description?: string | null
+          page_title?: string | null
           price?: number
           title?: string
           updated_at?: string | null
