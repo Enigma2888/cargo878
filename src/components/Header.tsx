@@ -1,6 +1,4 @@
 
-import { Link } from "react-router-dom";
-import { Users } from "lucide-react";
 import { getTelegramUser } from "@/utils/telegram";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
@@ -9,7 +7,7 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 h-16 bg-[#1A1F2C] border-b border-white/10 z-50">
-      <div className="h-full max-w-md mx-auto px-4 flex items-center justify-between">
+      <div className="h-full max-w-md mx-auto px-4 flex items-center">
         <div className="flex items-center gap-3">
           <Avatar>
             <AvatarImage src={user?.photo_url} />
@@ -21,12 +19,6 @@ export const Header = () => {
             Привет, {user?.first_name || user?.username || 'Гость'}
           </span>
         </div>
-        <Link 
-          to="/partnership" 
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white"
-        >
-          <Users className="w-5 h-5" />
-        </Link>
       </div>
     </header>
   );
