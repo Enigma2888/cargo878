@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Share2, Copy, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -8,14 +7,14 @@ import { getTelegramUser } from "@/utils/telegram";
 import { createShareLink, createTelegramShareLink } from "@/utils/referral";
 import { Header } from "@/components/Header";
 import { BottomNav } from "@/components/BottomNav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Partnership = () => {
   const { toast } = useToast();
   const user = getTelegramUser();
   const [isCopied, setIsCopied] = useState(false);
 
-  const { data: referralsCount = 0 } = useQuery({
+  const { data: referralsCount = 0, refetch: refetchReferrals } = useQuery({
     queryKey: ['referrals-count', user?.id],
     queryFn: async () => {
       if (!user?.id) return 0;
@@ -30,7 +29,7 @@ const Partnership = () => {
     enabled: !!user?.id
   });
 
-  const { data: clicksCount = 0 } = useQuery({
+  const { data: clicksCount = 0, refetch: refetchClicks } = useQuery({
     queryKey: ['referral-clicks-count', user?.id],
     queryFn: async () => {
       if (!user?.id) return 0;
@@ -45,18 +44,52 @@ const Partnership = () => {
     enabled: !!user?.id
   });
 
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const channel = supabase
+      .channel('referral-updates')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'referral_clicks',
+          filter: `referrer_id=eq.${user.id}`
+        },
+        () => {
+          refetchClicks();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'referrals',
+          filter: `referrer_id=eq.${user.id}`
+        },
+        () => {
+          refetchReferrals();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, refetchClicks, refetchReferrals]);
+
   const handleCopyLink = async () => {
     if (!user?.id) return;
     
     const link = createShareLink(user.id);
     await navigator.clipboard.writeText(link);
     
-    // Вибрация (если устройство поддерживает)
     if (navigator.vibrate) {
       navigator.vibrate(100);
     }
     
-    // Визуальный эффект
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
     
