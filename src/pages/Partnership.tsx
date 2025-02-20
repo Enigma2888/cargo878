@@ -60,36 +60,70 @@ const Partnership = () => {
     <div className="min-h-screen bg-[#1A1F2C] text-white pb-20">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
-        <div className="bg-[#2A2F3C] rounded-xl p-6 mb-6">
-          <h2 className="text-xl font-bold mb-4">Партнерская программа</h2>
-          <p className="text-gray-400 mb-6">
-            Приглашайте друзей и получайте бонусы за каждого приглашенного пользователя
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-2">Приглашай друзей!</h1>
+          <div className="text-xl mb-2">
+            <span className="text-white">Дарим по </span>
+            <span className="text-[#FF6B6B]">500 рублей</span>
+            <span className="text-white"> каждому!</span>
+          </div>
+          <p className="text-gray-400 text-sm">
+            Получи за каждое приглашение по твоей реферальной ссылке{' '}
+            <span className="text-[#FF6B6B]">500 баллов</span>. Также{' '}
+            <span className="text-[#FF6B6B]">500 баллов</span> получит твой друг.
           </p>
-          <div className="flex flex-col gap-4">
-            <Button 
-              onClick={handleCopyLink}
-              className="w-full"
-              variant="secondary"
-            >
-              <Copy className="w-4 h-4 mr-2" />
-              Копировать ссылку
-            </Button>
-            <Button 
-              onClick={handleShareToTelegram}
-              className="w-full"
-              variant="secondary"
-            >
-              <Share2 className="w-4 h-4 mr-2" />
-              Поделиться в Telegram
-            </Button>
+        </div>
+
+        <div className="bg-[#2A2F3C] rounded-xl p-6 mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[#FFD700]">👑</span>
+            <span className="text-gray-300">1 балл = 1 рубль</span>
+          </div>
+          <p className="text-sm text-gray-400 mb-4">
+            Баллами можно оплачивать до 100% покупок.
+          </p>
+          <div className="bg-black/20 rounded-lg p-3 text-sm text-gray-400">
+            Баллы начисляются после того, как приглашённый пользователь совершит покупку.
           </div>
         </div>
 
+        <div className="bg-[#2A2F3C] rounded-xl p-6 mb-6">
+          <h3 className="text-lg font-medium mb-4">Твоя ссылка на приглашение</h3>
+          <Button 
+            onClick={handleCopyLink}
+            className="w-full bg-white text-black hover:bg-white/90 mb-4"
+          >
+            <Copy className="w-4 h-4 mr-2" />
+            Скопировать
+          </Button>
+          <Button 
+            onClick={handleShareToTelegram}
+            className="w-full"
+            variant="secondary"
+          >
+            <Share2 className="w-4 h-4 mr-2" />
+            Поделиться в Telegram
+          </Button>
+        </div>
+
         <div className="bg-[#2A2F3C] rounded-xl p-6">
-          <h3 className="text-lg font-semibold mb-2">Статистика</h3>
-          <div className="flex items-center justify-between">
-            <span className="text-gray-400">Пригласил друзей</span>
-            <span className="text-xl font-bold">{referralsCount}</span>
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">Переходов по ссылке</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">Сделали заказ</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-gray-400">Отправили в РФ</span>
+              <span className="font-medium">0</span>
+            </div>
+            <div className="flex justify-between items-center pt-4 border-t border-gray-700">
+              <span className="font-medium">Всего баллов заработано</span>
+              <span className="font-medium">0</span>
+            </div>
           </div>
         </div>
       </main>
