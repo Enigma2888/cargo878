@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Share2, Copy } from "lucide-react";
+import { Share2, Copy, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
@@ -8,10 +8,12 @@ import { getTelegramUser } from "@/utils/telegram";
 import { createShareLink, createTelegramShareLink } from "@/utils/referral";
 import { Header } from "@/components/Header";
 import { BottomNav } from "@/components/BottomNav";
+import { useState } from "react";
 
 const Partnership = () => {
   const { toast } = useToast();
   const user = getTelegramUser();
+  const [isCopied, setIsCopied] = useState(false);
 
   const { data: referralsCount = 0 } = useQuery({
     queryKey: ['referrals-count', user?.id],
@@ -48,6 +50,15 @@ const Partnership = () => {
     
     const link = createShareLink(user.id);
     await navigator.clipboard.writeText(link);
+    
+    // Вибрация (если устройство поддерживает)
+    if (navigator.vibrate) {
+      navigator.vibrate(100);
+    }
+    
+    // Визуальный эффект
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
     
     toast({
       title: "Ссылка скопирована",
@@ -115,10 +126,23 @@ const Partnership = () => {
           <h3 className="text-lg font-medium mb-4">Твоя ссылка на приглашение</h3>
           <Button 
             onClick={handleCopyLink}
-            className="w-full bg-white text-black hover:bg-white/90 mb-4"
+            className={`w-full transition-all duration-200 ${
+              isCopied 
+                ? 'bg-green-500 text-white hover:bg-green-600' 
+                : 'bg-white text-black hover:bg-white/90'
+            } mb-4`}
           >
-            <Copy className="w-4 h-4 mr-2" />
-            Скопировать
+            {isCopied ? (
+              <>
+                <Check className="w-4 h-4 mr-2" />
+                Скопировано
+              </>
+            ) : (
+              <>
+                <Copy className="w-4 h-4 mr-2" />
+                Скопировать
+              </>
+            )}
           </Button>
           <Button 
             onClick={handleShareToTelegram}
