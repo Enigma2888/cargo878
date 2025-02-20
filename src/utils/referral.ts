@@ -1,4 +1,6 @@
 
+import { supabase } from "@/lib/supabase";
+
 export const encodeReferralData = (userId: string) => {
   const data = { referrer: userId };
   return btoa(JSON.stringify(data));
