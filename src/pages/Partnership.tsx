@@ -28,6 +28,21 @@ const Partnership = () => {
     enabled: !!user?.id
   });
 
+  const { data: clicksCount = 0 } = useQuery({
+    queryKey: ['referral-clicks-count', user?.id],
+    queryFn: async () => {
+      if (!user?.id) return 0;
+      const { count, error } = await supabase
+        .from('referral_clicks')
+        .select('*', { count: 'exact', head: true })
+        .eq('referrer_id', user.id);
+      
+      if (error) throw error;
+      return count || 0;
+    },
+    enabled: !!user?.id
+  });
+
   const handleCopyLink = async () => {
     if (!user?.id) return;
     
@@ -119,11 +134,11 @@ const Partnership = () => {
           <div className="space-y-4">
             <div className="flex justify-between items-center">
               <span className="text-gray-400">Переходов по ссылке</span>
-              <span className="font-medium">0</span>
+              <span className="font-medium">{clicksCount}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-400">Сделали заказ</span>
-              <span className="font-medium">0</span>
+              <span className="font-medium">{referralsCount}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-400">Отправили в РФ</span>
@@ -131,7 +146,7 @@ const Partnership = () => {
             </div>
             <div className="flex justify-between items-center pt-4 border-t border-gray-700">
               <span className="font-medium">Всего баллов заработано</span>
-              <span className="font-medium">0</span>
+              <span className="font-medium">{referralsCount * 500}</span>
             </div>
           </div>
         </div>

@@ -48,6 +48,24 @@ export type Database = {
         }
         Relationships: []
       }
+      referral_clicks: {
+        Row: {
+          clicked_at: string
+          id: string
+          referrer_id: string
+        }
+        Insert: {
+          clicked_at?: string
+          id?: string
+          referrer_id: string
+        }
+        Update: {
+          clicked_at?: string
+          id?: string
+          referrer_id?: string
+        }
+        Relationships: []
+      }
       referrals: {
         Row: {
           created_at: string
