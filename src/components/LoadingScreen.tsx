@@ -14,6 +14,9 @@ export const LoadingScreen = () => {
         const telegramUser = getTelegramUser();
         const initData = getInitData();
 
+        console.log('LoadingScreen: Current URL parameters:', window.location.search);
+        console.log('LoadingScreen: Telegram user data:', telegramUser);
+
         if (!telegramUser) {
           console.error('No Telegram user data available');
           return;
@@ -31,8 +34,11 @@ export const LoadingScreen = () => {
           device
         });
 
+        console.log('LoadingScreen: User data saved, processing referral params...');
+        
         // Обрабатываем реферальные данные
-        await processReferralParams();
+        const referralResult = await processReferralParams();
+        console.log('LoadingScreen: Referral processing result:', referralResult);
         
       } catch (error) {
         console.error('Error during app initialization:', error);
