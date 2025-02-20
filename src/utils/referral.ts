@@ -50,57 +50,58 @@ export const processReferralParams = async () => {
     }
 
     // Декодируем параметр startapp
-    const decodedData = JSON.parse(atob(startApp));
-    const referrerId = decodedData.referrer;
+    try {
+      const decodedData = JSON.parse(atob(startApp));
+      const referrerId = decodedData.referrer;
 
-    if (!referrerId || referrerId === currentUser.id) {
-      console.log('Invalid referrer ID or self-referral attempted');
-      return;
-    }
-
-    console.log('Processing referral with data:', {
-      referrerId,
-      currentUserId: currentUser.id
-    });
-
-    // Сначала проверяем существующий реферал
-    const { data: existingReferral } = await supabase
-      .from('referrals')
-      .select('*')
-      .eq('referee_id', currentUser.id)
-      .maybeSingle();
-
-    // Если реферала нет, создаём новый
-    if (!existingReferral) {
-      console.log('Creating new referral');
-      const { error: referralError } = await supabase
-        .from('referrals')
-        .insert({
-          referrer_id: referrerId,
-          referee_id: currentUser.id
-        });
-
-      if (referralError) {
-        throw new Error(`Failed to create referral: ${referralError.message}`);
+      if (!referrerId || referrerId === currentUser.id) {
+        console.log('Invalid referrer ID or self-referral attempted');
+        return;
       }
-    } else {
-      console.log('Referral already exists');
-    }
 
-    // Всегда записываем клик
-    console.log('Recording referral click');
-    const { error: clickError } = await supabase
-      .from('referral_clicks')
-      .insert({
-        referrer_id: referrerId
+      console.log('Processing referral with data:', {
+        referrerId,
+        currentUserId: currentUser.id
       });
 
-    if (clickError) {
-      throw new Error(`Failed to record click: ${clickError.message}`);
-    }
+      // Проверяем существующий реферал
+      const { data: existingReferral, error: checkError } = await supabase
+        .from('referrals')
+        .select('*')
+        .eq('referee_id', currentUser.id)
+        .maybeSingle();
 
-    console.log('Referral processing completed successfully');
-    return true;
+      if (checkError) {
+        throw new Error(`Failed to check existing referral: ${checkError.message}`);
+      }
+
+      // Если реферала нет, создаём новый
+      if (!existingReferral) {
+        console.log('Creating new referral');
+        const { error: referralError } = await supabase
+          .from('referrals')
+          .insert({
+            referrer_id: referrerId,
+            referee_id: currentUser.id
+          });
+
+        if (referralError) {
+          throw new Error(`Failed to create referral: ${referralError.message}`);
+        }
+        
+        // После успешного создания реферала записываем клик
+        await trackReferralClick(referrerId);
+      } else {
+        console.log('Referral already exists');
+      }
+
+      console.log('Referral processing completed successfully');
+      return true;
+
+    } catch (decodeError) {
+      console.error('Failed to decode startapp parameter:', decodeError);
+      return false;
+    }
 
   } catch (error) {
     console.error('Error processing referral:', error);

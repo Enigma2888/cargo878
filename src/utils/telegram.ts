@@ -3,6 +3,7 @@ declare global {
   interface Window {
     Telegram: {
       WebApp: {
+        initData: string;
         initDataUnsafe: {
           user?: {
             id?: string;
@@ -32,4 +33,8 @@ export const getTelegramUser = () => {
   }
 
   return null;
+};
+
+export const getInitData = () => {
+  return window.Telegram?.WebApp?.initData || '';
 };
