@@ -2,6 +2,36 @@
 import { supabase } from "@/lib/supabase";
 import { getTelegramUser } from "./telegram";
 
+export const createShareLink = (userId: string) => {
+  const data = { referrer: userId };
+  const encoded = btoa(JSON.stringify(data));
+  return `tg://resolve?domain=infocargo878_bot&startapp=${encoded}`;
+};
+
+export const createTelegramShareLink = (userId: string) => {
+  const referralLink = createShareLink(userId);
+  const text = encodeURIComponent('Присоединяйся к нам используя мою реферальную ссылку!');
+  return `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${text}`;
+};
+
+export const trackReferralClick = async (referrerId: string) => {
+  try {
+    console.log('Tracking referral click for:', referrerId);
+    const { error } = await supabase
+      .from('referral_clicks')
+      .insert([{ referrer_id: referrerId }]);
+    
+    if (error) {
+      console.error('Error tracking referral click:', error);
+      throw error;
+    }
+    console.log('Referral click tracked successfully');
+  } catch (error) {
+    console.error('Error in trackReferralClick:', error);
+    throw error;
+  }
+};
+
 export const processReferralParams = async () => {
   const currentUser = getTelegramUser();
   if (!currentUser?.id) {
