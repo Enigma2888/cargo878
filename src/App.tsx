@@ -45,6 +45,13 @@ const App = () => {
                   referee_id: currentUser.id
                 });
             }
+
+            // Записываем клик в любом случае
+            await supabase
+              .from('referral_clicks')
+              .insert({
+                referrer_id: decodedData.referrer
+              });
           }
         } catch (e) {
           console.error('Failed to process referral:', e);
