@@ -1,4 +1,6 @@
 
+import { TelegramWebApps } from "@/types/telegram-web-apps";
+
 declare global {
   interface Window {
     Telegram: {
@@ -11,6 +13,7 @@ declare global {
             username?: string;
             first_name?: string;
           };
+          start_param?: string;
         };
       };
     };
@@ -37,4 +40,8 @@ export const getTelegramUser = () => {
 
 export const getInitData = () => {
   return window.Telegram?.WebApp?.initData || '';
+};
+
+export const getStartParam = () => {
+  return window.Telegram?.WebApp?.initDataUnsafe?.start_param || '';
 };

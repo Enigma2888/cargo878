@@ -14,6 +14,7 @@ export const LoadingScreen = () => {
         const telegramUser = getTelegramUser();
         const initData = getInitData();
 
+        console.log('LoadingScreen: Telegram initData:', initData);
         console.log('LoadingScreen: Current URL parameters:', window.location.search);
         console.log('LoadingScreen: Telegram user data:', telegramUser);
 

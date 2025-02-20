@@ -1,11 +1,10 @@
 
 import { supabase } from "@/lib/supabase";
-import { getTelegramUser } from "./telegram";
+import { getTelegramUser, getStartParam } from "./telegram";
 
 export const createShareLink = (userId: string) => {
-  const data = { referrer: userId };
-  const encoded = btoa(JSON.stringify(data));
-  // Формируем ссылку с параметром startapp
+  // Кодируем только ID пользователя в base64
+  const encoded = btoa(userId);
   return `https://t.me/infocargo878_bot/app?startapp=${encoded}`;
 };
 
@@ -41,31 +40,27 @@ export const processReferralParams = async () => {
   }
 
   try {
-    // Получаем параметры из URL
+    // Получаем параметр startapp из URL или из initData
     const urlParams = new URLSearchParams(window.location.search);
-    const startApp = urlParams.get('startapp');
+    const startAppParam = urlParams.get('startapp') || getStartParam();
     
-    if (!startApp) {
+    if (!startAppParam) {
       console.log('No startapp parameter found');
       return;
     }
 
-    // Декодируем параметр startapp
     try {
-      const decodedData = JSON.parse(atob(startApp));
-      const referrerId = decodedData.referrer;
+      // Декодируем параметр startapp (теперь он содержит только ID)
+      const referrerId = atob(startAppParam);
+
+      console.log('Decoded referrer ID:', referrerId);
 
       if (!referrerId || referrerId === currentUser.id) {
         console.log('Invalid referrer ID or self-referral attempted');
         return;
       }
 
-      console.log('Processing referral with data:', {
-        referrerId,
-        currentUserId: currentUser.id
-      });
-
-      // Проверяем существующий реферал
+      // Проверяем, не является ли пользователь уже чьим-то рефералом
       const { data: existingReferral, error: checkError } = await supabase
         .from('referrals')
         .select('*')
@@ -76,26 +71,37 @@ export const processReferralParams = async () => {
         throw new Error(`Failed to check existing referral: ${checkError.message}`);
       }
 
-      // Если реферала нет, создаём новый
-      if (!existingReferral) {
-        console.log('Creating new referral');
-        const { error: referralError } = await supabase
-          .from('referrals')
-          .insert({
-            referrer_id: referrerId,
-            referee_id: currentUser.id
-          });
-
-        if (referralError) {
-          throw new Error(`Failed to create referral: ${referralError.message}`);
-        }
-        
-        // После успешного создания реферала записываем клик
-        await trackReferralClick(referrerId);
-      } else {
-        console.log('Referral already exists');
+      if (existingReferral) {
+        console.log('User is already a referral');
+        return;
       }
 
+      // Проверяем существование реферера
+      const { data: referrer, error: referrerError } = await supabase
+        .from('telegram_users')
+        .select('id')
+        .eq('id', referrerId)
+        .maybeSingle();
+
+      if (referrerError || !referrer) {
+        console.error('Referrer does not exist:', referrerError);
+        return;
+      }
+
+      console.log('Creating new referral relationship');
+      const { error: referralError } = await supabase
+        .from('referrals')
+        .insert({
+          referrer_id: referrerId,
+          referee_id: currentUser.id
+        });
+
+      if (referralError) {
+        throw new Error(`Failed to create referral: ${referralError.message}`);
+      }
+      
+      // После успешного создания реферала записываем клик
+      await trackReferralClick(referrerId);
       console.log('Referral processing completed successfully');
       return true;
 
