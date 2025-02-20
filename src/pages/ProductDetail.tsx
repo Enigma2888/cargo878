@@ -1,6 +1,7 @@
 
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "@/components/Header";
+import { BottomNav } from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import confetti from 'canvas-confetti';
@@ -19,7 +20,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#1A1F2C] text-white">
+    <div className="min-h-screen bg-[#1A1F2C] text-white pb-20">
       <Header />
       <main className="pt-20 px-4 max-w-md mx-auto">
         <div className="bg-[#2A2F3C] rounded-xl p-4">
@@ -65,6 +66,7 @@ const ProductDetail = () => {
           </Button>
         </div>
       </main>
+      <BottomNav />
     </div>
   );
 };

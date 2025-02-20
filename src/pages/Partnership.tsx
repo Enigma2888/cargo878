@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { getTelegramUser } from "@/utils/telegram";
 import { createShareLink, createTelegramShareLink } from "@/utils/referral";
+import { Header } from "@/components/Header";
+import { BottomNav } from "@/components/BottomNav";
 
 const Partnership = () => {
   const { toast } = useToast();
@@ -55,8 +57,9 @@ const Partnership = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1A1F2C] text-white">
-      <div className="max-w-md mx-auto px-4 pt-20">
+    <div className="min-h-screen bg-[#1A1F2C] text-white pb-20">
+      <Header />
+      <main className="pt-20 px-4 max-w-md mx-auto">
         <div className="bg-[#2A2F3C] rounded-xl p-6 mb-6">
           <h2 className="text-xl font-bold mb-4">Партнерская программа</h2>
           <p className="text-gray-400 mb-6">
@@ -89,7 +92,8 @@ const Partnership = () => {
             <span className="text-xl font-bold">{referralsCount}</span>
           </div>
         </div>
-      </div>
+      </main>
+      <BottomNav />
     </div>
   );
 };
