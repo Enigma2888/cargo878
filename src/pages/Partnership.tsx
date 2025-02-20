@@ -4,15 +4,37 @@ import { useToast } from "@/components/ui/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { getTelegramUser } from "@/utils/telegram";
-import { createShareLink, createTelegramShareLink } from "@/utils/referral";
+import { createShareLink, createTelegramShareLink, trackReferralClick } from "@/utils/referral";
 import { Header } from "@/components/Header";
 import { BottomNav } from "@/components/BottomNav";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Partnership = () => {
   const { toast } = useToast();
   const user = getTelegramUser();
   const [isCopied, setIsCopied] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const startapp = searchParams.get('startapp');
+    if (startapp) {
+      try {
+        const data = JSON.parse(atob(startapp));
+        if (data.referrer) {
+          trackReferralClick(data.referrer)
+            .then(() => {
+              console.log('Referral click tracked successfully');
+            })
+            .catch((error) => {
+              console.error('Error tracking referral click:', error);
+            });
+        }
+      } catch (error) {
+        console.error('Error processing referral data:', error);
+      }
+    }
+  }, [searchParams]);
 
   const { data: referralsCount = 0, refetch: refetchReferrals } = useQuery({
     queryKey: ['referrals-count', user?.id],
@@ -58,6 +80,7 @@ const Partnership = () => {
           filter: `referrer_id=eq.${user.id}`
         },
         () => {
+          console.log('Referral click detected, refreshing data...');
           refetchClicks();
         }
       )
@@ -70,6 +93,7 @@ const Partnership = () => {
           filter: `referrer_id=eq.${user.id}`
         },
         () => {
+          console.log('Referral created, refreshing data...');
           refetchReferrals();
         }
       )
