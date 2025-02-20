@@ -5,12 +5,13 @@ import { getTelegramUser } from "./telegram";
 export const createShareLink = (userId: string) => {
   const data = { referrer: userId };
   const encoded = btoa(JSON.stringify(data));
-  return `tg://resolve?domain=infocargo878_bot&startapp=${encoded}`;
+  // Изменяем формат ссылки на формат как на скриншоте
+  return `https://t.me/neyrocoderbot/app?startapp=${encoded}`;
 };
 
 export const createTelegramShareLink = (userId: string) => {
   const referralLink = createShareLink(userId);
-  const text = encodeURIComponent('Присоединяйся к нам используя мою реферальную ссылку!');
+  const text = encodeURIComponent('Присоединяйтесь к нашему сервису и получите 500 баллов на первый заказ! 🎁');
   return `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${text}`;
 };
 
