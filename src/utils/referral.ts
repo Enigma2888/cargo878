@@ -5,8 +5,8 @@ import { getTelegramUser } from "./telegram";
 export const createShareLink = (userId: string) => {
   const data = { referrer: userId };
   const encoded = btoa(JSON.stringify(data));
-  // Используем стандартный параметр start для Telegram WebApp
-  return `https://t.me/infocargo878_bot/app?start=${encoded}`;
+  // Формируем ссылку с параметром startapp
+  return `https://t.me/infocargo878_bot/app?startapp=${encoded}`;
 };
 
 export const createTelegramShareLink = (userId: string) => {
@@ -43,16 +43,16 @@ export const processReferralParams = async () => {
   try {
     // Получаем параметры из URL
     const urlParams = new URLSearchParams(window.location.search);
-    const startParam = urlParams.get('start');
+    const startApp = urlParams.get('startapp');
     
-    if (!startParam) {
-      console.log('No start parameter found');
+    if (!startApp) {
+      console.log('No startapp parameter found');
       return;
     }
 
-    // Декодируем параметр start
+    // Декодируем параметр startapp
     try {
-      const decodedData = JSON.parse(atob(startParam));
+      const decodedData = JSON.parse(atob(startApp));
       const referrerId = decodedData.referrer;
 
       if (!referrerId || referrerId === currentUser.id) {
@@ -100,7 +100,7 @@ export const processReferralParams = async () => {
       return true;
 
     } catch (decodeError) {
-      console.error('Failed to decode start parameter:', decodeError);
+      console.error('Failed to decode startapp parameter:', decodeError);
       return false;
     }
 
