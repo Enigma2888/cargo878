@@ -44,7 +44,16 @@ const Partnership = () => {
     if (!user?.id) return;
     
     const shareUrl = createTelegramShareLink(user.id);
-    window.open(shareUrl, '_blank', 'popup=yes');
+    const width = 600;
+    const height = 400;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+    
+    window.open(
+      shareUrl,
+      'telegram-share',
+      `width=${width},height=${height},left=${left},top=${top},popup=yes,noopener,noreferrer`
+    );
   };
 
   if (!user) {
