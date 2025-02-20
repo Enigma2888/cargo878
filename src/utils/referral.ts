@@ -5,7 +5,7 @@ import { getTelegramUser } from "./telegram";
 export const createShareLink = (userId: string) => {
   const data = { referrer: userId };
   const encoded = btoa(JSON.stringify(data));
-  // Изменяем формат ссылки на формат как на скриншоте
+  // Изменяем формат ссылки на формат веб-приложения
   return `https://t.me/infocargo878_bot/app?startapp=${encoded}`;
 };
 
