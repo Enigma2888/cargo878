@@ -48,6 +48,42 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          created_at: string
+          id: string
+          referee_id: string
+          referrer_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referee_id: string
+          referrer_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referee_id?: string
+          referrer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrals_referee_id_fkey"
+            columns: ["referee_id"]
+            isOneToOne: true
+            referencedRelation: "telegram_users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "referrals_referrer_id_fkey"
+            columns: ["referrer_id"]
+            isOneToOne: false
+            referencedRelation: "telegram_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       services: {
         Row: {
           category: string | null
