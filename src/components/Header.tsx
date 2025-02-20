@@ -16,7 +16,7 @@ export const Header = () => {
             </AvatarFallback>
           </Avatar>
           <span className="text-white">
-            Привет, {user?.first_name || user?.username || 'Гость'}
+            {user?.first_name || user?.username || 'Гость'}, Привет
           </span>
         </div>
       </div>
