@@ -15,7 +15,7 @@ export const decodeReferralData = (encodedData: string): { referrer: string } | 
 
 export const createShareLink = (userId: string) => {
   const encoded = encodeReferralData(userId);
-  return `https://t.me/infocargo878_bot/appt/app?startapp=${encoded}`;
+  return `tg://resolve?domain=infocargo878_bot&startapp=${encoded}`;
 };
 
 export const createTelegramShareLink = (userId: string) => {
