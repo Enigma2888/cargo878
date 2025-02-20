@@ -13,7 +13,15 @@ import Partnership from "./pages/Partnership";
 import { supabase } from "./lib/supabase";
 import { getTelegramUser } from "./utils/telegram";
 
-const queryClient = new QueryClient();
+// Создаем инстанс QueryClient с настройками повторных попыток
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2,
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    },
+  },
+});
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,29 +37,46 @@ const App = () => {
           const decodedData = JSON.parse(atob(startApp));
           
           if (decodedData.referrer && decodedData.referrer !== currentUser.id) {
+            console.log('Processing referral for user:', currentUser.id, 'from referrer:', decodedData.referrer);
+            
             // Проверяем, не является ли пользователь уже чьим-то рефералом
-            const { data: existingReferral } = await supabase
+            const { data: existingReferral, error: referralError } = await supabase
               .from('referrals')
               .select('*')
               .eq('referee_id', currentUser.id)
               .single();
 
+            if (referralError && referralError.code !== 'PGRST116') {
+              console.error('Error checking existing referral:', referralError);
+            }
+
             if (!existingReferral) {
-              // Если пользователь еще не является чьим-то рефералом, добавляем запись
-              await supabase
+              console.log('Creating new referral record');
+              const { error: insertError } = await supabase
                 .from('referrals')
                 .insert({
                   referrer_id: decodedData.referrer,
                   referee_id: currentUser.id
                 });
+              
+              if (insertError) {
+                console.error('Error creating referral:', insertError);
+              }
+            } else {
+              console.log('User already has a referrer');
             }
 
             // Записываем клик в любом случае
-            await supabase
+            console.log('Recording referral click');
+            const { error: clickError } = await supabase
               .from('referral_clicks')
               .insert({
                 referrer_id: decodedData.referrer
               });
+            
+            if (clickError) {
+              console.error('Error recording click:', clickError);
+            }
           }
         } catch (e) {
           console.error('Failed to process referral:', e);
@@ -60,8 +85,9 @@ const App = () => {
     };
 
     const timer = setTimeout(() => {
-      handleReferral();
-      setIsLoading(false);
+      handleReferral().finally(() => {
+        setIsLoading(false);
+      });
     }, 3000);
 
     return () => clearTimeout(timer);

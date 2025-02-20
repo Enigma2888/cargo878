@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    // Добавляем настройку для обработки всех маршрутов через index.html
+    historyApiFallback: true
   },
   plugins: [
     react(),
