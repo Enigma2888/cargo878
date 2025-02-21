@@ -13,6 +13,7 @@ declare global {
           };
           start_param?: string;
         };
+        switchInlineQuery: (query: string, targets?: string[]) => void;
       };
     };
   }
