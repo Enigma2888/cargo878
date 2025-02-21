@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Share2, Copy, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -142,7 +143,8 @@ const Partnership = () => {
     const text = 'Присоединяйтесь к нашему сервису и получите 500 баллов на первый заказ! 🎁\n\n' + link;
     
     if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.switchInlineQuery(text, ['users', 'groups']);
+      // Изменяем вызов метода - передаем только текст
+      window.Telegram.WebApp.switchInlineQuery(text);
     } else {
       const shareUrl = createTelegramShareLink(user.id);
       window.open(
