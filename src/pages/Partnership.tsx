@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Share2, Copy, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -106,13 +105,7 @@ const Partnership = () => {
   }, [user?.id, refetchClicks, refetchReferrals]);
 
   const handleCopyLink = async () => {
-    if (!user?.id) {
-      toast({
-        title: "Требуется авторизация",
-        description: "Для копирования ссылки необходимо авторизоваться"
-      });
-      return;
-    }
+    if (!user?.id) return;
     
     const link = createShareLink(user.id);
     await navigator.clipboard.writeText(link);
@@ -131,13 +124,7 @@ const Partnership = () => {
   };
 
   const handleShareToTelegram = () => {
-    if (!user?.id) {
-      toast({
-        title: "Требуется авторизация",
-        description: "Для отправки ссылки необходимо авторизоваться"
-      });
-      return;
-    }
+    if (!user?.id) return;
     
     const shareUrl = createTelegramShareLink(user.id);
     const width = 600;
@@ -151,6 +138,15 @@ const Partnership = () => {
       `width=${width},height=${height},left=${left},top=${top},popup=yes,noopener,noreferrer`
     );
   };
+
+  if (!user) {
+    return <div className="flex items-center justify-center min-h-screen bg-[#1A1F2C] text-white">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-2">Ошибка</h1>
+        <p className="text-gray-400">Не удалось получить данные пользователя</p>
+      </div>
+    </div>;
+  }
 
   return (
     <div className="min-h-screen bg-[#1A1F2C] text-white pb-20">
