@@ -1,4 +1,6 @@
 
+import { TelegramWebApps } from "@/types/telegram-web-apps";
+
 declare global {
   interface Window {
     Telegram: {
