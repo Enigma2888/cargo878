@@ -1,6 +1,4 @@
 
-import { TelegramWebApps } from "@/types/telegram-web-apps";
-
 declare global {
   interface Window {
     Telegram: {
@@ -15,6 +13,7 @@ declare global {
           };
           start_param?: string;
         };
+        openTelegramLink: (url: string) => void;
       };
     };
   }

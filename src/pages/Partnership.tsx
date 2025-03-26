@@ -105,7 +105,13 @@ const Partnership = () => {
   }, [user?.id, refetchClicks, refetchReferrals]);
 
   const handleCopyLink = async () => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      toast({
+        title: "Требуется авторизация",
+        description: "Для копирования ссылки необходимо авторизоваться"
+      });
+      return;
+    }
     
     const link = createShareLink(user.id);
     await navigator.clipboard.writeText(link);
@@ -124,29 +130,28 @@ const Partnership = () => {
   };
 
   const handleShareToTelegram = () => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      toast({
+        title: "Требуется авторизация",
+        description: "Для отправки ссылки необходимо авторизоваться"
+      });
+      return;
+    }
     
-    const shareUrl = createTelegramShareLink(user.id);
-    const width = 600;
-    const height = 400;
-    const left = (window.innerWidth - width) / 2;
-    const top = (window.innerHeight - height) / 2;
+    const link = createShareLink(user.id);
+    const text = 'Присоединяйтесь к нашему сервису и получите 500 баллов на первый заказ! 🎁\n\n' + link;
     
-    window.open(
-      shareUrl,
-      'telegram-share',
-      `width=${width},height=${height},left=${left},top=${top},popup=yes,noopener,noreferrer`
-    );
+    if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.openTelegramLink(`tg://msg?text=${encodeURIComponent(text)}`);
+    } else {
+      const shareUrl = createTelegramShareLink(user.id);
+      window.open(
+        shareUrl,
+        '_blank',
+        'noopener,noreferrer'
+      );
+    }
   };
-
-  if (!user) {
-    return <div className="flex items-center justify-center min-h-screen bg-[#1A1F2C] text-white">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-2">Ошибка</h1>
-        <p className="text-gray-400">Не удалось получить данные пользователя</p>
-      </div>
-    </div>;
-  }
 
   return (
     <div className="min-h-screen bg-[#1A1F2C] text-white pb-20">
