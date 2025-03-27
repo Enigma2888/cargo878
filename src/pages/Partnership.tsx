@@ -142,7 +142,7 @@ const Partnership = () => {
     const text = 'Присоединяйтесь к нашему сервису и получите 500 баллов на первый заказ! 🎁\n\n' + link;
     
     if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.openTelegramLink(`tg://msg?text=${encodeURIComponent(text)}`);
+      window.Telegram.WebApp.switchInlineQuery(text, ['users', 'groups']);
     } else {
       const shareUrl = createTelegramShareLink(user.id);
       window.open(

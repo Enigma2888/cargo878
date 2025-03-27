@@ -13,7 +13,7 @@ declare global {
           };
           start_param?: string;
         };
-        openTelegramLink: (url: string) => void;
+        switchInlineQuery: (query: string, targets?: string[]) => void;
       };
     };
   }
