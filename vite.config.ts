@@ -6,13 +6,11 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: "0.0.0.0", // Changed from "::" to "0.0.0.0" for better compatibility
     port: 8080,
-    // Настраиваем middleware для обработки всех маршрутов
-    middlewareMode: true
+    // Removed middlewareMode: true which was causing the HTTP server error
   },
   preview: {
-    // Добавляем настройки для production сервера
     port: 8080,
     host: true
   },
