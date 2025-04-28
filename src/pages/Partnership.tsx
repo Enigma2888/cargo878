@@ -142,8 +142,8 @@ const Partnership = () => {
           </div>
           <p className="text-gray-400 text-sm">
             Получи за каждое приглашение по твоей реферальной ссылке{' '}
-            <span className="text-[#FF6B6B]">500 баллов</span>. Также{' '}
-            <span className="text-[#FF6B6B]">500 баллов</span> получит твой друг.
+            <span className="text-[#FF6B6B]">300 баллов</span>. Также{' '}
+            <span className="text-[#FF6B6B]">300 баллов</span> получит твой друг.
           </p>
         </div>
 
