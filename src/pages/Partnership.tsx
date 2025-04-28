@@ -3,7 +3,7 @@ import { Share2, Copy, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import { getTelegramUser } from "@/utils/telegram";
+import { getTelegramUser, shareToTelegramContacts, openTelegramLink } from "@/utils/telegram";
 import { createShareLink, createTelegramShareLink, trackReferralClick } from "@/utils/referral";
 import { Header } from "@/components/Header";
 import { BottomNav } from "@/components/BottomNav";
@@ -139,17 +139,13 @@ const Partnership = () => {
     }
     
     const link = createShareLink(user.id);
-    const text = 'Присоединяйтесь к нашему сервису и получите 500 баллов на первый заказ! 🎁\n\n' + link;
+    const shareText = 'Присоединяйтесь к нашему сервису и получите 500 баллов на первый заказ! 🎁\n\n' + link;
     
-    if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.switchInlineQuery(text, ['users', 'groups']);
-    } else {
+    const sharedViaWebApp = shareToTelegramContacts(shareText);
+    
+    if (!sharedViaWebApp) {
       const shareUrl = createTelegramShareLink(user.id);
-      window.open(
-        shareUrl,
-        '_blank',
-        'noopener,noreferrer'
-      );
+      openTelegramLink(shareUrl);
     }
   };
 
